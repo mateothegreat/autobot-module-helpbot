@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { HelpBotTag }                                                                      from './HelpBotTag';
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { HelpBotAnswer }                                                                              from './HelpBotAnswer';
+import { HelpBotTag }                                                                                 from './HelpBotTag';
 
 @Entity()
 export class HelpBotQuestion {
@@ -25,5 +26,8 @@ export class HelpBotQuestion {
     @ManyToMany(type => HelpBotTag)
     @JoinTable()
     public tags: HelpBotTag[];
+
+    @OneToMany(type => HelpBotAnswer, answer => answer.question)
+    public answers: HelpBotAnswer[];
 
 }
