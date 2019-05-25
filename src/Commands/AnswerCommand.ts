@@ -37,11 +37,11 @@ export class AnswerCommand extends CommandBase {
         //
         // First we need to find the question by id.
         //
-        const question = await DB.connection.getRepository(HelpBotQuestion)
-                                 .createQueryBuilder('t')
-                                 .select([ '*' ])
-                                 .where('id = :id', { id: command.namedarguments.id })
-                                 .getRawOne();
+        const question: HelpBotQuestion = await DB.connection.getRepository(HelpBotQuestion)
+                                                  .createQueryBuilder('t')
+                                                  .select([ '*' ])
+                                                  .where('id = :id', { id: command.namedarguments.id })
+                                                  .getRawOne();
 
         if (question) {
 
@@ -58,6 +58,12 @@ export class AnswerCommand extends CommandBase {
             Logger.log(`AnswerCommand.run: ${ JSON.stringify(result) }`);
 
             command.obj.reply(new RichEmbed().setTitle('Answer Question').setDescription(`Your answer has eben submitted!`));
+
+            command.obj.guild.fetchMember(question.fromUserid).then(user => {
+                
+                user.sendEmbed(new RichEmbed().setTitle('You have an answer!').setDescription(command.namedarguments.answer));
+
+            });
 
         } else {
 
