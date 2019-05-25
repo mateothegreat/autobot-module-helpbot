@@ -6,7 +6,7 @@
     "typings": "dist/index",
     "scripts": {
         "build": "tsc",
-        "bump": "tsc && npm version patch && npm publish"
+        "bump": "tsc && npm version patch && npm publish --access=public"
     },
     "access": "public",
     "keywords": [],
