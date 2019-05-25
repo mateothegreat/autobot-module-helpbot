@@ -42,7 +42,7 @@ export class AskCommand extends CommandBase {
         question.fromUserid = command.obj.author.id;
         question.fromDiscriminator = command.obj.author.discriminator;
         question.fromUsername = command.obj.author.username;
-        question.question = command.obj.content;
+        question.question = command.obj.content.replace('!ask ', '');
         question.tags = [];
 
         const tags = command.obj.content.match(/#([a-z0-9]+)/gi);
@@ -72,13 +72,11 @@ export class AskCommand extends CommandBase {
 
         if (channel) {
 
-            console.log(command);
-
             // @ts-ignore
             channel.send(new RichEmbed().setTitle('New Question')
                                         .addField('Requestor', `<@${ command.obj.author.id }>`)
                                         .addField('Tags', tags.join(', '))
-                                        .setDescription(command.obj.content.replace('!ask ', '')));
+                                        .setDescription(question.question));
 
         }
 
