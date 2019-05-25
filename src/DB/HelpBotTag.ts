@@ -12,4 +12,7 @@ export class HelpBotTag {
     @Column()
     name: string;
 
+    @Column()
+    description: string;
+
 }

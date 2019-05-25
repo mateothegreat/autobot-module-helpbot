@@ -1,6 +1,5 @@
 import { Command, CommandBase, CommandParser, DB, Event } from '@autobot/common';
 import { RichEmbed }                                      from "discord.js";
-import { Macro }                                          from '../../../autobot-module-macro-system/src/DB/Macro';
 import { HelpBotTag }                                     from '../DB/HelpBotTag';
 
 /**
@@ -77,17 +76,17 @@ export class TagAddCommand extends CommandBase {
 
         } else {
 
-            const macro: Macro = new Macro();
+            const tag: HelpBotTag = new HelpBotTag();
 
-            macro.name = command.namedarguments.name;
-            macro.message = command.namedarguments.message;
+            tag.name = command.namedarguments.name;
+            tag.description = command.namedarguments.description;
 
-            DB.connection.manager.save(macro);
+            DB.connection.manager.save(tag);
 
             command.obj.reply(new RichEmbed().setTitle('Create HelpBotTag').setDescription(`The tag \`++${ command.namedarguments.name }\` has been created!`));
 
         }
-        
+
     }
 
 }
