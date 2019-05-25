@@ -75,10 +75,10 @@ export class AskCommand extends CommandBase {
             console.log(command);
 
             // @ts-ignore
-            channel.sendEmbed(new RichEmbed().setTitle('New Question')
-                                             .addField('Requestor', `<@${ command.obj.author.id }>`)
-                                             .addField('Tags', tags.join(', '))
-                                             .setDescription(command.obj.content));
+            channel.send(new RichEmbed().setTitle('New Question')
+                                        .addField('Requestor', `<@${ command.obj.author.id }>`)
+                                        .addField('Tags', tags.join(', '))
+                                        .setDescription(command.obj.content));
 
         }
 
