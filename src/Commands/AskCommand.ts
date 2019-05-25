@@ -74,9 +74,9 @@ export class AskCommand extends CommandBase {
 
             // @ts-ignore
             channel.sendEmbed(new RichEmbed().setTitle('New Question')
-                                             .addField('Requestor', `<@${ command.obj.author.discriminator }>`)
+                                             .addField('Requestor', `<@${ command.obj.author.id }>`)
                                              .addField('Tags', tags.join(', '))
-                                             .setDescription(`Your question has ben submitted! Here is your ticket number: #${ result.id }`));
+                                             .setDescription(command.obj.content));
 
         }
 
