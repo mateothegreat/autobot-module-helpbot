@@ -61,7 +61,7 @@ export class AnswerCommand extends CommandBase {
 
         } else {
 
-            command.obj.reply(new RichEmbed().setTitle('Answer Question').setDescription(`Could not find question #${ command.obj.namedarguments.id }`));
+            command.obj.reply(new RichEmbed().setTitle('Answer Question').setDescription(`Could not find question #${ command.namedarguments.id }`));
 
         }
 
