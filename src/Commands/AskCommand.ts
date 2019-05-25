@@ -1,5 +1,5 @@
 import { Command, CommandBase, CommandParser, DB, Event, Logger } from '@autobot/common';
-import { RichEmbed }                                              from 'discord.js';
+import { Channel, RichEmbed }                                     from 'discord.js';
 import { HelpBotQuestion }                                        from '../DB/HelpBotQuestion';
 import { HelpBotTag }                                             from '../DB/HelpBotTag';
 
@@ -68,15 +68,18 @@ export class AskCommand extends CommandBase {
         command.obj.reply(new RichEmbed().setTitle('Ask New Question').setDescription(`Your question has ben submitted! Here is your ticket number: #${ result.id }`));
 
 
-        const channel = await command.obj.client.channels.find(channel => channel.id === process.env.HELPBOT_QUESTIONS_CHANNEL_ID);
+        const channel: Channel = await command.obj.client.channels.find(channel => channel.id === process.env.HELPBOT_QUESTIONS_CHANNEL_ID);
 
         if (channel) {
 
             // @ts-ignore
-            channel.send(123123);
+            channel.sendEmbed(new RichEmbed().setTitle('New Question')
+                                             .addField('Requestor', `<@${ command.obj.author.discriminator }>`)
+                                             .addField('Tags', tags.join(', '))
+                                             .setDescription(`Your question has ben submitted! Here is your ticket number: #${ result.id }`));
 
         }
-        
+
 
         Logger.log(`AskCommand.run: ${ JSON.stringify(result) }`);
 
