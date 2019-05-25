@@ -51,11 +51,12 @@ export class AskCommand extends CommandBase {
 
         if (tags && tags.length > 0) {
 
-            // BOT.client.fetchUser(userids[ i ]).then((member: User) => {
+            tags.forEach(tag => {
 
-            //
-            // Now we extract the user id(s).
-            //
+
+
+            });
+
         }
 
     }
