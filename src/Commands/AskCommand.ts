@@ -16,15 +16,15 @@ export class AskCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '*',
-            group: 'events',
-            description: 'Searches each message for thank you or thanks.',
+            name: '!ask',
+            group: 'help',
+            description: 'Submits a question to the HelpDesk',
             entities: [ HelpBotQuestion, HelpBotTag ]
 
         });
 
     }
-
+ 
     //
     // Called when a command matches config.name.
     //
@@ -38,13 +38,14 @@ export class AskCommand extends CommandBase {
         question.fromUserid = command.obj.author.id;
         question.fromDiscriminator = command.obj.author.discriminator;
         question.fromUsername = command.obj.author.username;
+        question.question = command.obj.content;
 
         DB.connection.manager.save(question);
 
         const tags = command.obj.content.match(/#([a-z0-9]+)/gi);
 
         console.log(tags);
-        
+
         if (tags && tags.length > 0) {
 
             // BOT.client.fetchUser(userids[ i ]).then((member: User) => {
