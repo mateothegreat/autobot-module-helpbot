@@ -1,7 +1,7 @@
-import { Command, CommandBase, CommandParser, DB, Event } from '@autobot/common';
-import { RichEmbed }                                      from 'discord.js';
-import { HelpBotQuestion }                                from '../DB/HelpBotQuestion';
-import { HelpBotTag }                                     from '../DB/HelpBotTag';
+import { Command, CommandBase, CommandParser, DB, Event, Logger } from '@autobot/common';
+import { RichEmbed }                                              from 'discord.js';
+import { HelpBotQuestion }                                        from '../DB/HelpBotQuestion';
+import { HelpBotTag }                                             from '../DB/HelpBotTag';
 
 /**
  * Submits a question to the HelpDesk.
@@ -65,9 +65,9 @@ export class AskCommand extends CommandBase {
 
         const result = await DB.connection.manager.save(question);
 
-        console.log(result);
-
         command.obj.reply(new RichEmbed().setTitle('Ask New Question').setDescription(`Your question has ben submitted! Here is your ticket number: #${ result.id }`));
+
+        Logger.log(`AskCommand.run: ${ JSON.stringify(result) }`);
 
     }
 
