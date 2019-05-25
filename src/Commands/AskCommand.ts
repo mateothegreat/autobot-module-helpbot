@@ -1,12 +1,11 @@
-import { Command, CommandBase, CommandParser, DB, Event } from '@autobot/common';
-import { HelpBotQuestion }                                from '../DB/HelpBotQuestion';
-import { HelpBotTag }                                     from '../DB/HelpBotTag';
+import { Command, CommandBase, CommandParser, Event } from '@autobot/common';
+import { RichEmbed }                                  from "discord.js";
 
 /**
- * Searches each message for thank you or thanks.
+ *
  */
 @Command
-export class AskCommand extends CommandBase {
+export class ColourCommand extends CommandBase {
 
     public constructor() {
 
@@ -16,43 +15,31 @@ export class AskCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '!ask',
-            group: 'help',
-            description: 'Submits a question to the HelpDesk',
-            entities: [ HelpBotQuestion, HelpBotTag ]
+            name: 'asdf',
+            group: 'fun',
+            description: 'Returns an embed with the color passed to it.'
 
         });
 
     }
- 
-    //
-    // Called when a command matches config.name.
-    //
-    public run(command: CommandParser): void {
 
-        //
-        // First we try to detect for thank you and thanks.
-        //
-        let question: HelpBotQuestion = new HelpBotQuestion();
+    /**
+     * Called when a command matches config.name.
+     *
+     * @param command Parsed out commamd
+     *
+     */
+    public async run(command: CommandParser) {
 
-        question.fromUserid = command.obj.author.id;
-        question.fromDiscriminator = command.obj.author.discriminator;
-        question.fromUsername = command.obj.author.username;
-        question.question = command.obj.content;
+        const matches = command.arguments[ 0 ].name.match(/#(.*)/);
 
-        DB.connection.manager.save(question);
+        if (matches.length > 0) {
 
-        const tags = command.obj.content.match(/#([a-z0-9]+)/gi);
+            const embed = new RichEmbed().setColor(parseInt(matches[ 1 ], 16))
+                                         .setDescription(`#${ matches[ 1 ] }`);
 
-        console.log(tags);
+            command.obj.channel.send(embed);
 
-        if (tags && tags.length > 0) {
-
-            // BOT.client.fetchUser(userids[ i ]).then((member: User) => {
-
-            //
-            // Now we extract the user id(s).
-            //
         }
 
     }
