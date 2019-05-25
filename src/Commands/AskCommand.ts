@@ -1,5 +1,5 @@
 import { Command, CommandBase, CommandParser, DB, Event } from '@autobot/common';
-import { RichEmbed }                                      from "discord.js";
+import { RichEmbed }                                      from 'discord.js';
 import { HelpBotQuestion }                                from '../DB/HelpBotQuestion';
 import { HelpBotTag }                                     from '../DB/HelpBotTag';
 
@@ -20,7 +20,7 @@ export class AskCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '!ask',
+            name: '!ask222',
             group: 'help',
             description: 'Submits a question to the HelpDesk',
             entities: [ HelpBotQuestion, HelpBotTag ]
