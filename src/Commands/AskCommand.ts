@@ -72,6 +72,8 @@ export class AskCommand extends CommandBase {
 
         if (channel) {
 
+            console.log(command);
+
             // @ts-ignore
             channel.sendEmbed(new RichEmbed().setTitle('New Question')
                                              .addField('Requestor', `<@${ command.obj.author.id }>`)
