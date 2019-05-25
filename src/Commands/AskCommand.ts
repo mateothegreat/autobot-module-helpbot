@@ -1,4 +1,5 @@
 import { Command, CommandBase, CommandParser, DB, Event } from '@autobot/common';
+import { RichEmbed }                                      from "discord.js";
 import { HelpBotQuestion }                                from '../DB/HelpBotQuestion';
 import { HelpBotTag }                                     from '../DB/HelpBotTag';
 
@@ -31,7 +32,7 @@ export class AskCommand extends CommandBase {
     //
     // Called when a command matches config.name.
     //
-    public run(command: CommandParser): void {
+    public async run(command: CommandParser) {
 
         //
         // First we try to detect for thank you and thanks.
@@ -42,22 +43,31 @@ export class AskCommand extends CommandBase {
         question.fromDiscriminator = command.obj.author.discriminator;
         question.fromUsername = command.obj.author.username;
         question.question = command.obj.content;
-
-        DB.connection.manager.save(question);
+        question.tags = [];
 
         const tags = command.obj.content.match(/#([a-z0-9]+)/gi);
 
-        console.log(tags);
-
         if (tags && tags.length > 0) {
 
-            tags.forEach(tag => {
+            for (let i = 0; i < tags.length; i++) {
 
+                const tag = await DB.connection.getRepository(HelpBotTag)
+                                    .createQueryBuilder('t')
+                                    .select([ '*' ])
+                                    .where('name = :name', { name: tags[ i ].replace('#', '') })
+                                    .getRawOne();
 
+                question.tags.push(tag);
 
-            });
+            }
 
         }
+
+        const result = await DB.connection.manager.save(question);
+
+        console.log(result);
+
+        command.obj.reply(new RichEmbed().setTitle('Ask New Question').setDescription(`Your question has ben submitted! Here is your ticket number: #${ result.id }`));
 
     }
 

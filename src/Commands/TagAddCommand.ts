@@ -72,7 +72,7 @@ export class TagAddCommand extends CommandBase {
               .where('id = :id', { id: result.id })
               .execute();
 
-            command.obj.reply(new RichEmbed().setTitle('Update HelpBotTag').setDescription(`The tag \`++${ command.namedarguments.name }\` has been updated!`));
+            command.obj.reply(new RichEmbed().setTitle('Update HelpBotTag').setDescription(`The tag \`${ command.namedarguments.name }\` has been updated!`));
 
         } else {
 
@@ -83,7 +83,7 @@ export class TagAddCommand extends CommandBase {
 
             DB.connection.manager.save(tag);
 
-            command.obj.reply(new RichEmbed().setTitle('Create HelpBotTag').setDescription(`The tag \`++${ command.namedarguments.name }\` has been created!`));
+            command.obj.reply(new RichEmbed().setTitle('Create HelpBotTag').setDescription(`The tag \`${ command.namedarguments.name }\` has been created!`));
 
         }
 
