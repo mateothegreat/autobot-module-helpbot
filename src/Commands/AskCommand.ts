@@ -78,7 +78,7 @@ export class AskCommand extends CommandBase {
             channel.send(new RichEmbed().setTitle('New Question')
                                         .addField('Requestor', `<@${ command.obj.author.id }>`)
                                         .addField('Tags', tags.join(', '))
-                                        .setDescription(command.obj.content));
+                                        .setDescription(command.obj.content.replace('!ask ', '')));
 
         }
 
