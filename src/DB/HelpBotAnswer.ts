@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { HelpBotQuestion }                                                                 from './HelpBotQuestion';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { HelpBotQuestion }                                                     from './HelpBotQuestion';
 
 @Entity()
 export class HelpBotAnswer {
@@ -22,8 +22,7 @@ export class HelpBotAnswer {
     @Column({ type: "blob" })
     public answer: string;
 
-    @OneToMany(type => HelpBotQuestion)
-    @JoinColumn()
+    @ManyToOne(type => HelpBotQuestion, question => question.answers)
     public question: HelpBotQuestion;
 
 }
