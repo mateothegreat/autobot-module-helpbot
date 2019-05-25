@@ -67,6 +67,17 @@ export class AskCommand extends CommandBase {
 
         command.obj.reply(new RichEmbed().setTitle('Ask New Question').setDescription(`Your question has ben submitted! Here is your ticket number: #${ result.id }`));
 
+
+        const channel = await command.obj.client.channels.find(channel => channel.id === process.env.HELPBOT_QUESTIONS_CHANNEL_ID);
+
+        if (channel) {
+
+            // @ts-ignore
+            channel.send(123123);
+
+        }
+        
+
         Logger.log(`AskCommand.run: ${ JSON.stringify(result) }`);
 
     }
