@@ -36,6 +36,7 @@ export class SearchCommand extends CommandBase {
         const tags = command.obj.content.match(/#([a-z0-9]+)/gi);
         const cleanTags: Array<string> = [];
 
+        console.log(12312313);
         console.log(tags);
 
         for (let i = 1; i < tags.length; i++) {
