@@ -103,7 +103,7 @@ export class SearchCommand extends CommandBase {
 
             if (command.namedarguments.id) {
 
-                results = await DB.connection.getRepository(HelpBotTag)
+                results = await DB.connection.getRepository(HelpBotQuestion)
                                   .createQueryBuilder('t')
                                   .select([ '*' ])
                                   .where('id = :id', { id: command.namedarguments.value })
