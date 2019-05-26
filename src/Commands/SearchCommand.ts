@@ -89,8 +89,8 @@ export class SearchCommand extends CommandBase {
 
         } else {
 
+            console.log(command);
             console.log(command.arguments);
-
 
             const results: Array<HelpBotQuestion> = await DB.connection.getRepository(HelpBotQuestion)
                                                             .find({
