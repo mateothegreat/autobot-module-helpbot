@@ -44,7 +44,6 @@ export class DeleteCommand extends CommandBase {
     //
     public async run(command: CommandParser) {
 
-
         //
         // First we try to retrieve the tag by name.
         //
