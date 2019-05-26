@@ -1,5 +1,6 @@
 import { Command, CommandBase, CommandParser, DB, Event, Logger } from '@autobot/common';
 import { RichEmbed }                                              from 'discord.js';
+import { Like }                                                   from 'typeorm';
 import { HelpBotQuestion }                                        from '../DB/HelpBotQuestion';
 import { HelpBotTag }                                             from '../DB/HelpBotTag';
 
@@ -35,51 +36,83 @@ export class SearchCommand extends CommandBase {
     public async run(command: CommandParser) {
 
         const tags = command.obj.content.match(/#([a-z0-9]+)/gi);
-        const cleanTags: Array<string> = [];
 
-        for (let i = 0; i < tags.length; i++) {
+        //
+        // Search by tags only.
+        //
+        if (tags.length > 0) {
 
-            console.log(tags[ i ]);
+            const cleanTags: Array<string> = [];
 
-            if (tags[ i ].match(/^#[a-z0-9]+$/)) {
+            for (let i = 0; i < tags.length; i++) {
 
-                cleanTags.push(tags[ i ].replace('#', ''));
+                console.log(tags[ i ]);
+
+                if (tags[ i ].match(/^#[a-z0-9]+$/)) {
+
+                    cleanTags.push(tags[ i ].replace('#', ''));
+
+                }
 
             }
 
-        }
+            const results: Array<HelpBotQuestion> = await DB.connection.manager.query('' +
+                '                                                                                   ' +
+                'SELECT q.*                                                                         ' +
+                '                                                                                   ' +
+                'FROM help_bot_tag t                                                                ' +
+                '                                                                                   ' +
+                'INNER JOIN help_bot_question_tags_help_bot_tag link ON link.helpBotTagId = t.id    ' +
+                'INNER JOIN help_bot_question q ON q.id = link.helpBotQuestionId                    ' +
+                '                                                                                   ' +
+                'WHERE t.name IN(\'' + cleanTags.join('\', \'') + '\')                              ' +
+                '                                                                                   ' +
+                '');
 
-        const results: Array<HelpBotQuestion> = await DB.connection.manager.query('' +
-            '                                                                                   ' +
-            'SELECT q.*                                                                         ' +
-            '                                                                                   ' +
-            'FROM help_bot_tag t                                                                ' +
-            '                                                                                   ' +
-            'INNER JOIN help_bot_question_tags_help_bot_tag link ON link.helpBotTagId = t.id    ' +
-            'INNER JOIN help_bot_question q ON q.id = link.helpBotQuestionId                    ' +
-            '                                                                                   ' +
-            'WHERE t.name IN(\'' + cleanTags.join('\', \'') + '\')                              ' +
-            '                                                                                   ' +
-            '');
+            if (results.length > 0) {
 
-        console.log(results);
+                const embed = new RichEmbed().setTitle('Search Results');
 
-        if (results.length > 0) {
+                results.forEach(result => {
 
-            const embed = new RichEmbed().setTitle('Search Results');
+                    embed.addField(`#${ result.id }`, result.question);
 
-            results.forEach(result => {
+                });
 
-                embed.addField(`#${ result.id }`, result.question);
+                command.obj.reply(embed);
 
-            });
+            } else {
 
-            command.obj.reply(embed);
+                command.obj.reply(new RichEmbed().setTitle('Search Results').setDescription(`No questions found.`));
 
+            }
 
         } else {
 
-            command.obj.reply(new RichEmbed().setTitle('Search Results').setDescription(`No questions found.`));
+            const results: Array<HelpBotQuestion> = await DB.connection.getRepository(HelpBotQuestion)
+                                                            .find({
+
+                                                                question: Like(`%${ command.arguments[ 0 ].name }%`)
+
+                                                            });
+
+            if (results.length > 0) {
+
+                const embed = new RichEmbed().setTitle('Search Results');
+
+                results.forEach(result => {
+
+                    embed.addField(`#${ result.id }`, result.question);
+
+                });
+
+                command.obj.reply(embed);
+
+            } else {
+
+                command.obj.reply(new RichEmbed().setTitle('Search Results').setDescription(`No questions found.`));
+
+            }
 
         }
 
