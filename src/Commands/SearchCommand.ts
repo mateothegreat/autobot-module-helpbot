@@ -53,6 +53,7 @@ export class SearchCommand extends CommandBase {
             'FROM help_bot_tag t                                                                ' +
             '                                                                                   ' +
             'INNER JOIN help_bot_question_tags_help_bot_tag link ON link.helpBotTagId = t.id    ' +
+            'INNER JOIN help_bot_question q ON q.id = link.helpBotQuestionId                    ' +
             '                                                                                   ' +
             'WHERE t.name IN(\'' + cleanTags.join('\', \'') + '\')                              ' +
             '                                                                                   ' +
