@@ -44,6 +44,8 @@ export class CommentAddCommand extends CommandBase {
         if (question) {
 
             console.log(command.obj.author);
+            console.log(command.obj.author);
+            console.log(command.obj.author);
 
             let comment: HelpBotComment = new HelpBotComment();
 
