@@ -99,6 +99,8 @@ export class SearchCommand extends CommandBase {
 
             let results: Array<HelpBotQuestion>;
 
+            console.log(command.namedarguments);
+
             if (command.namedarguments.id) {
 
                 results = await DB.connection.getRepository(HelpBotTag)
