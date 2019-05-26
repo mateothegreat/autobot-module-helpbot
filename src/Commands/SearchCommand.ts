@@ -38,6 +38,8 @@ export class SearchCommand extends CommandBase {
 
         for (let i = 0; i < tags.length; i++) {
 
+            console.log(tags[ i ]);
+
             if (tags[ i ].match(/^#[a-z0-9]+$/)) {
 
                 cleanTags.push(tags[ i ].replace('#', ''));
@@ -45,6 +47,9 @@ export class SearchCommand extends CommandBase {
             }
 
         }
+
+        console.log(cleanTags);
+
 
         const sql = '' +
             '                                                                                   ' +
