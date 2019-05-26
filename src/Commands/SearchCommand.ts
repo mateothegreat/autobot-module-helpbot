@@ -95,6 +95,8 @@ export class SearchCommand extends CommandBase {
                                                             .getMany();
 
 
+            console.log(results);
+            
             if (results.length > 0) {
 
                 const embed = new RichEmbed().setTitle('Search Results');
@@ -112,7 +114,7 @@ export class SearchCommand extends CommandBase {
                 command.obj.reply(new RichEmbed().setTitle('Search Results').setDescription(`No questions found.`));
 
             }
-            
+
         }
 
 
