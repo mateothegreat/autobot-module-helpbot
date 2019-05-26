@@ -94,6 +94,25 @@ export class SearchCommand extends CommandBase {
                                                             .where('question LIKE :question', { question: `%${ command.arguments[ 0 ].name }%` })
                                                             .getMany();
 
+
+            if (results.length > 0) {
+
+                const embed = new RichEmbed().setTitle('Search Results');
+
+                results.forEach(result => {
+
+                    embed.addField(`#${ result.id }`, result.question);
+
+                });
+
+                command.obj.reply(embed);
+
+            } else {
+
+                command.obj.reply(new RichEmbed().setTitle('Search Results').setDescription(`No questions found.`));
+
+            }
+            
         }
 
 
