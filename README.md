@@ -1,5 +1,7 @@
 # HelpBot for discord
 
+Helpbot manages questions submitted by users.
+
 ## Installation
 
 Install the node module in your bot project root directory:
