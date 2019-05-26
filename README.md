@@ -29,3 +29,4 @@ HELPBOT_QUESTIONS_CHANNEL_ID=<some channel id>
 | `?delete id=<#>`                                                      | Delete a question by it's id #.                                   |
 | `?tagadd name=<tag name>, description=<tag description - optional>`   | Creates a new tag.                                                |
 | `?tagdelete name=<tag name>`                                          | Delete a tag by name.                                             |
+| `?comment id=<#>, comment=<insert comment>`                           | Adds a comment, user receives a copy via direct message.          |

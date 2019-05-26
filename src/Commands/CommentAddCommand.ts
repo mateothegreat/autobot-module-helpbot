@@ -1,29 +1,26 @@
 import { Command, CommandBase, CommandParser, DB, Event, Logger } from '@autobot/common';
 import { RichEmbed }                                              from 'discord.js';
-import { HelpBotAnswer }                                          from '../DB/HelpBotAnswer';
+import { HelpBotComment }                                         from '../DB/HelpBotComment';
 import { HelpBotQuestion }                                        from '../DB/HelpBotQuestion';
 
 /**
- * Answer a HelpDesk question.
+ * Adds a comment to a question.
  *
- * Example: !search #javascript #js
+ * Example: !comment id=<#>, comment=<insert comment data here>
  *
  */
 @Command
-export class AnswerCommand extends CommandBase {
+export class CommentAddCommand extends CommandBase {
 
     public constructor() {
 
-        //
-        // Set this commands configuration.
-        //
         super({
 
             event: Event.MESSAGE,
-            name: '?answer',
+            name: '?comment',
             group: 'help',
-            description: 'Answer a HelpDesk question.',
-            entities: [ HelpBotAnswer ],
+            description: 'Adds a comment to a question.',
+            entities: [ HelpBotComment ],
             roles: [ process.env.HELPBOT_ADMIN_ROLE_NAME ],
 
         });
@@ -46,23 +43,22 @@ export class AnswerCommand extends CommandBase {
 
         if (question) {
 
-            let answer: HelpBotAnswer = new HelpBotAnswer();
+            let comment: HelpBotComment = new HelpBotComment();
 
-            answer.fromUserid = command.obj.author.id;
-            answer.fromDiscriminator = command.obj.author.discriminator;
-            answer.fromUsername = command.obj.author.username;
-            answer.answer = command.namedarguments.answer;
-            answer.question = question;
+            comment.fromUserid = command.obj.author.id;
+            comment.fromDiscriminator = command.obj.author.discriminator;
+            comment.fromUsername = command.obj.author.username;
+            comment.comment = command.namedarguments.comment;
 
-            const result = await DB.connection.manager.save(answer);
+            const result = await DB.connection.manager.save(comment);
 
-            Logger.log(`AnswerCommand.run: ${ JSON.stringify(result) }`);
+            Logger.log(`CommentAddCommand.run: ${ JSON.stringify(result) }`);
 
-            command.obj.reply(new RichEmbed().setTitle('Answer Question').setDescription(`Your answer has been submitted!`));
+            command.obj.reply(new RichEmbed().setTitle('Answer Question').setDescription(`Your comment has been submitted!`));
 
             command.obj.guild.fetchMember(question.fromUserid).then(user => {
 
-                user.sendEmbed(new RichEmbed().setTitle('You have an answer!').setDescription(command.namedarguments.answer));
+                user.sendEmbed(new RichEmbed().setTitle('You have a comment!').setDescription(command.namedarguments.comment));
 
             });
 
