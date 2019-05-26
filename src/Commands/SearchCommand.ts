@@ -84,7 +84,7 @@ export class SearchCommand extends CommandBase {
 
                 results.forEach(result => {
 
-                    embed.addField(`#${ result.id }`, result.question);
+                    embed.addField(`#${ result.id } (${ result.status })`, result.question);
 
                 });
 
@@ -139,7 +139,7 @@ export class SearchCommand extends CommandBase {
 
                 results.forEach(result => {
 
-                    embed.addField(`#${ result.id }`, result.question);
+                    embed.addField(`#${ result.id } (${ result.status })`, result.question);
 
                 });
 
