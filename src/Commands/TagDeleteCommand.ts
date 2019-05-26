@@ -40,15 +40,13 @@ export class TagDeleteCommand extends CommandBase {
 
         const deleted = await DB.connection.createQueryBuilder().delete().from(HelpBotTag).where('name = :name', { name: command.namedarguments.name }).execute();
 
-        console.log(deleted);
-
         if (deleted.raw.affectedRows > 0) {
 
-            command.obj.reply(new RichEmbed().setTitle('Delete macro').setDescription(`The tag "${ command.namedarguments.name }" has been deleted!`));
+            command.obj.reply(new RichEmbed().setTitle('Delete Tag').setDescription(`The tag "${ command.namedarguments.name }" has been deleted!`));
 
         } else {
 
-            command.obj.reply(new RichEmbed().setTitle('Delete macro').setDescription(`The tag "${ command.namedarguments.name }" could not be deleted! Is it associated with question(s)?`));
+            command.obj.reply(new RichEmbed().setTitle('Delete Tag').setDescription(`The tag "${ command.namedarguments.name }" could not be deleted! Is it associated with question(s)?`));
 
         }
 
