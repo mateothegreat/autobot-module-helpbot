@@ -40,7 +40,7 @@ export class SearchCommand extends CommandBase {
         //
         // Search by tags only.
         //
-        if (tags.length > 0) {
+        if (tags && tags.length > 0) {
 
             const cleanTags: Array<string> = [];
 
