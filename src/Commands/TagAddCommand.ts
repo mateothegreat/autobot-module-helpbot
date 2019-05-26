@@ -19,7 +19,7 @@ export class TagAddCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '?tagadd',
+            name: `${ process.env.HELPBOT_COMMAND_PREFIX }tagadd`,
             group: 'help',
             description: 'Creates a new HelpDesk Tag.',
             entities: [ HelpBotTag ],

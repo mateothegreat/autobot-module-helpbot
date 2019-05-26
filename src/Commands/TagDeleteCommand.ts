@@ -17,7 +17,7 @@ export class TagDeleteCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '?tagdelete',
+            name: `${ process.env.HELPBOT_COMMAND_PREFIX }tagdelete`,
             group: 'help',
             description: 'Deletes a HelpDesk Tag.',
             entities: [ HelpBotTag ],

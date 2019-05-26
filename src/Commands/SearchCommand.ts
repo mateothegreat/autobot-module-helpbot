@@ -21,7 +21,7 @@ export class SearchCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '?search',
+            name: `${ process.env.HELPBOT_COMMAND_PREFIX }search`,
             group: 'help',
             description: 'Search the HelpDesk questions.',
             entities: [ HelpBotQuestion, HelpBotTag ],

@@ -20,7 +20,7 @@ export class AnswerCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '?answer',
+            name: `${ process.env.HELPBOT_COMMAND_PREFIX }answer`,
             group: 'help',
             description: 'Answer a HelpDesk question.',
             entities: [ HelpBotAnswer ],

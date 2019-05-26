@@ -13,8 +13,9 @@ npm install @autobot/module-helpbot
 Add the following configuration variable to your `.env` file:
 
 ```
-HELPBOT_QUESTIONS_CHANNEL_ID=<some channel id>
+HELPBOT_COMMAND_PREFIX=?
 HELPBOT_ADMIN_ROLE_NAME=<role name i.e.: admin>
+HELPBOT_QUESTIONS_CHANNEL_ID=<some channel id>
 ```
 
 ## Commands

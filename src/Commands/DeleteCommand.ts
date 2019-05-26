@@ -20,7 +20,7 @@ export class DeleteCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '?delete',
+            name: `${ process.env.HELPBOT_COMMAND_PREFIX }delete`,
             group: 'help',
             description: 'Delete a HelpDesk questions.',
             entities: [ HelpBotQuestion ],

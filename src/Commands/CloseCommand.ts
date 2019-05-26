@@ -20,7 +20,7 @@ export class CloseCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '?close',
+            name: `${ process.env.HELPBOT_COMMAND_PREFIX }close`,
             group: 'help',
             description: 'Close a HelpDesk question.',
             entities: [ HelpBotQuestion ],

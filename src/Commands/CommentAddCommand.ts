@@ -17,7 +17,7 @@ export class CommentAddCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '?comment',
+            name: `${ process.env.HELPBOT_COMMAND_PREFIX }comment`,
             group: 'help',
             description: 'Adds a comment to a question.',
             entities: [ HelpBotComment ],
