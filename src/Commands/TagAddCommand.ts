@@ -23,7 +23,7 @@ export class TagAddCommand extends CommandBase {
             group: 'help',
             description: 'Creates a new HelpDesk Tag.',
             entities: [ HelpBotTag ],
-            roles: [ 'admin' ],
+            roles: [ process.env.HELPBOT_ADMIN_ROLE_NAME ],
             params: [
 
                 {

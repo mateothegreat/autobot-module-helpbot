@@ -23,7 +23,8 @@ export class AnswerCommand extends CommandBase {
             name: '!answer',
             group: 'help',
             description: 'Answer a HelpDesk question.',
-            entities: [ HelpBotAnswer ]
+            entities: [ HelpBotAnswer ],
+            roles: [ process.env.HELPBOT_ADMIN_ROLE_NAME ],
 
         });
 
@@ -60,7 +61,7 @@ export class AnswerCommand extends CommandBase {
             command.obj.reply(new RichEmbed().setTitle('Answer Question').setDescription(`Your answer has eben submitted!`));
 
             command.obj.guild.fetchMember(question.fromUserid).then(user => {
-                
+
                 user.sendEmbed(new RichEmbed().setTitle('You have an answer!').setDescription(command.namedarguments.answer));
 
             });

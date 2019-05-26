@@ -10,7 +10,7 @@ import { HelpBotQuestionStatus }                                  from '../DB/He
  *
  */
 @Command
-export class DeleteCommand extends CommandBase {
+export class CloseCommand extends CommandBase {
 
     public constructor() {
 
@@ -20,9 +20,9 @@ export class DeleteCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '!delete',
+            name: '!close',
             group: 'help',
-            description: 'Delete a HelpDesk questions.',
+            description: 'Close a HelpDesk question.',
             entities: [ HelpBotQuestion ],
             roles: [ process.env.HELPBOT_ADMIN_ROLE_NAME ],
             params: [
@@ -53,7 +53,7 @@ export class DeleteCommand extends CommandBase {
 
         if (result) {
 
-            result.status = HelpBotQuestionStatus.DELETED;
+            result.status = HelpBotQuestionStatus.ANSWERED;
 
             DB.connection
               .createQueryBuilder()
@@ -62,15 +62,15 @@ export class DeleteCommand extends CommandBase {
               .where('id = :id', { id: result.id })
               .execute();
 
-            command.obj.reply(new RichEmbed().setTitle('Delete macro').setDescription(`The question #${ command.namedarguments.id } has been marked as deleted!`));
+            command.obj.reply(new RichEmbed().setTitle('Delete macro').setDescription(`The question #${ command.namedarguments.id } has been marked as answered!`));
 
         } else {
 
-            command.obj.reply(new RichEmbed().setTitle('Delete macro').setDescription(`The question #${ command.namedarguments.id } could not be deleted! Does it exist?`));
+            command.obj.reply(new RichEmbed().setTitle('Delete macro').setDescription(`The question #${ command.namedarguments.id } could not be answered! Does it exist?`));
 
         }
 
-        Logger.log(`AskCommand.delete: ${ command.obj.content }`);
+        Logger.log(`AskCommand.close: ${ command.obj.content }`);
 
     }
 

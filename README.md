@@ -25,5 +25,6 @@ HELPBOT_QUESTIONS_CHANNEL_ID=<some channel id>
 | `!search id=<#>`                                                  | Retrieve a question by id.                                        |
 | `!answer id=<#>, answer=<insert answer here>`                     | Answers a question, user receives a copy via direct message.      |
 | `!close id=<#>`                                                   | Closes a question ticket.                                         |
+| `!delete id=<#>`                                                  | Delete a question by it's id #.                                   |
 | `++tag name=<tag name>, description=<tag description - optional>` | Creates a new tag.                                                |
 | `--tag name=<tag name>`                                           | Delete a tag by name.                                             |
