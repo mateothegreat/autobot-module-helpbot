@@ -43,7 +43,7 @@ export class DeleteCommand extends CommandBase {
     //
     public async run(command: CommandParser) {
 
-        const deleted = await DB.connection.createQueryBuilder().delete().from(HelpBotQuestion).where('id = :id', { name: command.namedarguments.id }).execute();
+        const deleted = await DB.connection.createQueryBuilder().delete().from(HelpBotQuestion).where('id = :id', { id: command.namedarguments.id }).execute();
 
         if (deleted.raw.affectedRows > 0) {
 
