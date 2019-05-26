@@ -134,7 +134,7 @@ export class SearchCommand extends CommandBase {
                                   .getRepository(HelpBotQuestion)
                                   .createQueryBuilder('t')
                                   .select([ '*' ])
-                                  .where('question ILIKE :terms', {
+                                  .where('question LIKE :terms COLLATE utf8_general_ci', {
 
                                       terms: '%' + command.arguments[ 0 ].name + '%'
 
