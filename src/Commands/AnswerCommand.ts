@@ -20,7 +20,7 @@ export class AnswerCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '!answer',
+            name: '?answer',
             group: 'help',
             description: 'Answer a HelpDesk question.',
             entities: [ HelpBotAnswer ],

@@ -23,6 +23,7 @@ HELPBOT_QUESTIONS_CHANNEL_ID=<some channel id>
 | `!search all`                                                     | Returns all questions.                                            |
 | `!search <terms>`                                                 | Searches all questions.                                           |
 | `!search id=<#>`                                                  | Retrieve a question by id.                                        |
+| `!search status=<new|answered>`                                   | Searches questions by status.                                     |
 | `!answer id=<#>, answer=<insert answer here>`                     | Answers a question, user receives a copy via direct message.      |
 | `!close id=<#>`                                                   | Closes a question ticket.                                         |
 | `!delete id=<#>`                                                  | Delete a question by it's id #.                                   |

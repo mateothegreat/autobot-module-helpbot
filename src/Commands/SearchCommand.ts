@@ -21,7 +21,7 @@ export class SearchCommand extends CommandBase {
         super({
 
             event: Event.MESSAGE,
-            name: '!search',
+            name: '?search',
             group: 'help',
             description: 'Search the HelpDesk questions.',
             entities: [ HelpBotQuestion, HelpBotTag ],
@@ -128,8 +128,6 @@ export class SearchCommand extends CommandBase {
                 results = await DB.connection.manager.query('SELECT * FROM help_bot_question');
 
             } else if (command.namedarguments.status) {
-
-                console.log(command.namedarguments.status);
 
                 results = await DB.connection
                                   .getRepository(HelpBotQuestion)

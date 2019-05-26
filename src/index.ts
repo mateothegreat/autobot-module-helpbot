@@ -4,3 +4,4 @@ export * from './Commands/CloseCommand';
 export * from './Commands/DeleteCommand';
 export * from './Commands/SearchCommand';
 export * from './Commands/TagAddCommand';
+export * from './Commands/TagDeleteCommand';
