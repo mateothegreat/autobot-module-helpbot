@@ -50,6 +50,8 @@ export class CommentAddCommand extends CommandBase {
             comment.fromUsername = command.obj.author.username;
             comment.comment = command.namedarguments.comment;
 
+            console.log(comment);
+
             const result = await DB.connection.manager.save(comment);
 
             Logger.log(`CommentAddCommand.run: ${ JSON.stringify(result) }`);
