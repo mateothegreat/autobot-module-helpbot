@@ -88,12 +88,17 @@ export class SearchCommand extends CommandBase {
 
         } else {
 
-            const results: Array<HelpBotQuestion> = await DB.connection.manager.query('SELECT * FROM help_bot_question WHERE question LIKE \'%' + command.arguments[ 0 ].name + '%\'');
+            let results: Array<HelpBotQuestion>;
 
+            if (command.arguments[ 0 ].name === 'all') {
 
-            console.log(command.arguments[ 0 ].name);
+                results = await DB.connection.manager.query('SELECT * FROM help_bot_question');
 
-            console.log(results);
+            } else {
+
+                results = await DB.connection.manager.query('SELECT * FROM help_bot_question WHERE question LIKE \'%' + command.arguments[ 0 ].name + '%\'');
+
+            }
 
             if (results.length > 0) {
 
