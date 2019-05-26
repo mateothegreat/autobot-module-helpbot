@@ -129,11 +129,13 @@ export class SearchCommand extends CommandBase {
 
             } else if (command.namedarguments.status) {
 
+                console.log(command.namedarguments.status);
+
                 results = await DB.connection
                                   .getRepository(HelpBotQuestion)
                                   .createQueryBuilder('t')
                                   .select([ '*' ])
-                                  .where('status LIKE :status COLLATE utf8_general_ci', {
+                                  .where('status = :status COLLATE utf8_general_ci', {
 
                                       status: command.namedarguments.status
 
