@@ -127,9 +127,20 @@ export class SearchCommand extends CommandBase {
 
                 results = await DB.connection.manager.query('SELECT * FROM help_bot_question');
 
+            } else if (command.namedarguments.status) {
+
+                results = await DB.connection
+                                  .getRepository(HelpBotQuestion)
+                                  .createQueryBuilder('t')
+                                  .select([ '*' ])
+                                  .where('status LIKE :status COLLATE utf8_general_ci', {
+
+                                      status: command.namedarguments.status
+
+                                  })
+                                  .getRawMany();
             } else {
 
-                // results = await DB.connection.manager.query('SELECT * FROM help_bot_question WHERE question LIKE \'%' + command.arguments[ 0 ].name + '%\'');
                 results = await DB.connection
                                   .getRepository(HelpBotQuestion)
                                   .createQueryBuilder('t')
