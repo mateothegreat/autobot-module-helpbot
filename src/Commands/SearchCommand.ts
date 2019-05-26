@@ -1,4 +1,5 @@
 import { Command, CommandBase, CommandParser, DB, Event, Logger } from '@autobot/common';
+import { RichEmbed }                                              from 'discord.js';
 import { HelpBotQuestion }                                        from '../DB/HelpBotQuestion';
 import { HelpBotTag }                                             from '../DB/HelpBotTag';
 
@@ -48,26 +49,7 @@ export class SearchCommand extends CommandBase {
 
         }
 
-        console.log(cleanTags);
-
-
-        const sql = '' +
-            '                                                                                   ' +
-            'SELECT q.*                                                                         ' +
-            '                                                                                   ' +
-            'FROM help_bot_tag t                                                                ' +
-            '                                                                                   ' +
-            'INNER JOIN help_bot_question_tags_help_bot_tag link ON link.helpBotTagId = t.id    ' +
-            'INNER JOIN help_bot_question q ON q.id = link.helpBotQuestionId                    ' +
-            '                                                                                   ' +
-            'WHERE t.name IN(\'' + cleanTags.join('\', \'') + '\')                              ' +
-            '                                                                                   ' +
-            '';
-
-        console.log(sql);
-
-
-        const result = await DB.connection.manager.query('' +
+        const results: Array<HelpBotQuestion> = await DB.connection.manager.query('' +
             '                                                                                   ' +
             'SELECT q.*                                                                         ' +
             '                                                                                   ' +
@@ -80,14 +62,26 @@ export class SearchCommand extends CommandBase {
             '                                                                                   ' +
             '');
 
-        console.log(result);
+        console.log(results);
 
-        if (result) {
+        if (results.length > 0) {
 
+            const embed = new RichEmbed().setTitle('Search Results');
+
+            results.forEach(result => {
+
+                embed.addField(`#${ result.id }`, result.question);
+
+            });
+
+            command.obj.reply(embed);
+
+
+        } else {
+
+            command.obj.reply(new RichEmbed().setTitle('Search Results').setDescription(`No questions found.`));
 
         }
-
-        // command.obj.reply(new RichEmbed().setTitle('Ask New Question').setDescription(`Your question has ben submitted! Here is your ticket number: #${ result.id }`));
 
         Logger.log(`AskCommand.search: ${ command.obj.content }`);
 
