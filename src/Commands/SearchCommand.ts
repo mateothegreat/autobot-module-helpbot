@@ -1,6 +1,5 @@
 import { Command, CommandBase, CommandParser, DB, Event, Logger } from '@autobot/common';
 import { RichEmbed }                                              from 'discord.js';
-import { Like }                                                   from 'typeorm';
 import { HelpBotQuestion }                                        from '../DB/HelpBotQuestion';
 import { HelpBotTag }                                             from '../DB/HelpBotTag';
 
@@ -90,31 +89,13 @@ export class SearchCommand extends CommandBase {
         } else {
 
             const results: Array<HelpBotQuestion> = await DB.connection.getRepository(HelpBotQuestion)
-                                                            .find({
-
-                                                                question: Like(`%q%`)
-
-                                                            });
-
-            if (results.length > 0) {
-
-                const embed = new RichEmbed().setTitle('Search Results');
-
-                results.forEach(result => {
-
-                    embed.addField(`#${ result.id }`, result.question);
-
-                });
-
-                command.obj.reply(embed);
-
-            } else {
-
-                command.obj.reply(new RichEmbed().setTitle('Search Results').setDescription(`No questions found.`));
-
-            }
+                                                            .createQueryBuilder('t')
+                                                            .select([ '*' ])
+                                                            .where('question LIKE \'%:question%\'', { question: command.arguments[ 0 ].name })
+                                                            .getMany();
 
         }
+
 
         Logger.log(`AskCommand.search: ${ command.obj.content }`);
 
