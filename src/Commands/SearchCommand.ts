@@ -91,7 +91,7 @@ export class SearchCommand extends CommandBase {
             const results: Array<HelpBotQuestion> = await DB.connection.getRepository(HelpBotQuestion)
                                                             .createQueryBuilder('t')
                                                             .select([ '*' ])
-                                                            .where('question LIKE :question', { question: command.arguments[ 0 ].name })
+                                                            .where('question LIKE \'%q%\'')
                                                             .getMany();
 
 
