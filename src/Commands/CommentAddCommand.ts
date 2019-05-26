@@ -43,14 +43,14 @@ export class CommentAddCommand extends CommandBase {
 
         if (question) {
 
+            console.log(command.obj.author);
+
             let comment: HelpBotComment = new HelpBotComment();
 
             comment.fromUserid = command.obj.author.id;
             comment.fromDiscriminator = command.obj.author.discriminator;
             comment.fromUsername = command.obj.author.username;
             comment.comment = command.namedarguments.comment;
-
-            console.log(comment);
 
             const result = await DB.connection.manager.save(comment);
 

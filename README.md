@@ -27,6 +27,6 @@ HELPBOT_QUESTIONS_CHANNEL_ID=<some channel id>
 | `?answer id=<#>, answer=<insert answer here>`                         | Answers a question, user receives a copy via direct message.      |
 | `?close id=<#>`                                                       | Closes a question ticket.                                         |
 | `?delete id=<#>`                                                      | Delete a question by it's id #.                                   |
-| `?tagadd name=<tag name>, description=<tag description - optional>`   | Creates a new tag.                                                |
+| `?tagadd name=<tag name>,description=<tag description - optional>`    | Creates a new tag.                                                |
 | `?tagdelete name=<tag name>`                                          | Delete a tag by name.                                             |
-| `?comment id=<#>, comment=<insert comment>`                           | Adds a comment, user receives a copy via direct message.          |
+| `?comment id=<#>,comment=<insert comment>`                            | Adds a comment, user receives a copy via direct message.          |
