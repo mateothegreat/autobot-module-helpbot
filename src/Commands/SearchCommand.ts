@@ -1,5 +1,4 @@
 import { Command, CommandBase, CommandParser, DB, Event, Logger } from '@autobot/common';
-import { RichEmbed }                                              from 'discord.js';
 import { HelpBotQuestion }                                        from '../DB/HelpBotQuestion';
 import { HelpBotTag }                                             from '../DB/HelpBotTag';
 
@@ -34,40 +33,41 @@ export class SearchCommand extends CommandBase {
     //
     public async run(command: CommandParser) {
 
-        //
-        // First we try to detect for thank you and thanks.
-        //
-        let question: HelpBotQuestion = new HelpBotQuestion();
-
-        question.fromUserid = command.obj.author.id;
-        question.fromDiscriminator = command.obj.author.discriminator;
-        question.fromUsername = command.obj.author.username;
-        question.question = command.obj.content;
-        question.tags = [];
-
         const tags = command.obj.content.match(/#([a-z0-9]+)/gi);
+        const cleanTags: Array<string> = [];
 
-        if (tags && tags.length > 0) {
+        for (let i = 1; i < tags.length; i++) {
 
-            for (let i = 0; i < tags.length; i++) {
+            if (tags[ i ].match(/^[a-z0-9]+$/)) {
 
-                const tag = await DB.connection.getRepository(HelpBotTag)
-                                    .createQueryBuilder('t')
-                                    .select([ '*' ])
-                                    .where('name = :name', { name: tags[ i ].replace('#', '') })
-                                    .getRawOne();
-
-                question.tags.push(tag);
+                cleanTags.push(tags[ i ]);
 
             }
 
         }
 
-        const result = await DB.connection.manager.save(question);
+        const result = await DB.connection.manager.query('' +
+            '                                                                                   ' +
+            'SELECT q.*                                                                         ' +
+            '                                                                                   ' +
+            'FROM help_bot_tag t                                                                ' +
+            '                                                                                   ' +
+            'INNER JOIN help_bot_question_tags_help_bot_tag link ON link.helpBotTagId = t.id    ' +
+            '                                                                                   ' +
+            'WHERE t.name IN(\'' + cleanTags.join('\', \'') + '\')                              ' +
+            '                                                                                   ' +
+            '');
 
-        command.obj.reply(new RichEmbed().setTitle('Ask New Question').setDescription(`Your question has ben submitted! Here is your ticket number: #${ result.id }`));
+        console.log(result);
 
-        Logger.log(`AskCommand.run: ${ JSON.stringify(result) }`);
+        if (result) {
+
+
+        }
+
+        // command.obj.reply(new RichEmbed().setTitle('Ask New Question').setDescription(`Your question has ben submitted! Here is your ticket number: #${ result.id }`));
+
+        Logger.log(`AskCommand.search: ${ command.obj.content }`);
 
     }
 
