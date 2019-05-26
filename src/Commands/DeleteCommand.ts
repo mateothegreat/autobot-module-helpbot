@@ -50,7 +50,7 @@ export class DeleteCommand extends CommandBase {
         const result = await DB.connection.getRepository(HelpBotQuestion)
                                .createQueryBuilder('t')
                                .select([ '*' ])
-                               .where('id = :id', { name: command.namedarguments.id })
+                               .where('id = :id', { id: command.namedarguments.id })
                                .getRawOne();
 
         //
