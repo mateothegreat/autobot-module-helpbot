@@ -46,6 +46,22 @@ export class SearchCommand extends CommandBase {
 
         }
 
+        const sql = '' +
+            '                                                                                   ' +
+            'SELECT q.*                                                                         ' +
+            '                                                                                   ' +
+            'FROM help_bot_tag t                                                                ' +
+            '                                                                                   ' +
+            'INNER JOIN help_bot_question_tags_help_bot_tag link ON link.helpBotTagId = t.id    ' +
+            'INNER JOIN help_bot_question q ON q.id = link.helpBotQuestionId                    ' +
+            '                                                                                   ' +
+            'WHERE t.name IN(\'' + cleanTags.join('\', \'') + '\')                              ' +
+            '                                                                                   ' +
+            '';
+
+        console.log(sql);
+
+
         const result = await DB.connection.manager.query('' +
             '                                                                                   ' +
             'SELECT q.*                                                                         ' +
