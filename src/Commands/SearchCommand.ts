@@ -43,9 +43,9 @@ export class SearchCommand extends CommandBase {
 
             console.log(tags[ i ]);
 
-            if (tags[ i ].match(/^[a-z0-9]+$/)) {
+            if (tags[ i ].match(/^#[a-z0-9]+$/)) {
 
-                cleanTags.push(tags[ i ]);
+                cleanTags.push(tags[ i ].replace('#', ''));
 
             }
 
