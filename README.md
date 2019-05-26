@@ -18,14 +18,14 @@ HELPBOT_QUESTIONS_CHANNEL_ID=<some channel id>
 
 ## Commands
 
-| Command                                                           | Description                                                       |
-|-------------------------------------------------------------------|-------------------------------------------------------------------|
-| `!search all`                                                     | Returns all questions.                                            |
-| `!search <terms>`                                                 | Searches all questions.                                           |
-| `!search id=<#>`                                                  | Retrieve a question by id.                                        |
-| `!search status=<new|answered>`                                   | Searches questions by status.                                     |
-| `!answer id=<#>, answer=<insert answer here>`                     | Answers a question, user receives a copy via direct message.      |
-| `!close id=<#>`                                                   | Closes a question ticket.                                         |
-| `!delete id=<#>`                                                  | Delete a question by it's id #.                                   |
-| `++tag name=<tag name>, description=<tag description - optional>` | Creates a new tag.                                                |
-| `--tag name=<tag name>`                                           | Delete a tag by name.                                             |
+| Command                                                               | Description                                                       |
+|-----------------------------------------------------------------------|-------------------------------------------------------------------|
+| `?search all`                                                         | Returns all questions.                                            |
+| `?search <terms>`                                                     | Searches all questions.                                           |
+| `?search id=<#>`                                                      | Retrieve a question by id.                                        |
+| `?search status=<new|answered>`                                       | Searches questions by status.                                     |
+| `?answer id=<#>, answer=<insert answer here>`                         | Answers a question, user receives a copy via direct message.      |
+| `?close id=<#>`                                                       | Closes a question ticket.                                         |
+| `?delete id=<#>`                                                      | Delete a question by it's id #.                                   |
+| `?tagadd name=<tag name>, description=<tag description - optional>`   | Creates a new tag.                                                |
+| `?tagdelete name=<tag name>`                                          | Delete a tag by name.                                             |
