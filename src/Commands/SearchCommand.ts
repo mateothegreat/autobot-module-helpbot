@@ -95,6 +95,8 @@ export class SearchCommand extends CommandBase {
                                                             .getMany();
 
 
+            console.log(command.arguments[ 0 ].name);
+
             console.log(results);
 
             if (results.length > 0) {
