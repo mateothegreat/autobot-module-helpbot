@@ -10,10 +10,11 @@ Install the node module in your bot project root directory:
 npm install @autobot/module-helpbot
 ```
 
-Add the following configuration variable to your `.env` file to receive all HelpBot messages in a channel:
+Add the following configuration variable to your `.env` file:
 
 ```
 HELPBOT_QUESTIONS_CHANNEL_ID=<some channel id>
+HELPBOT_ADMIN_ROLE_NAME=<role name i.e.: admin>
 ```
 
 ## Commands
