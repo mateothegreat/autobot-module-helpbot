@@ -106,7 +106,7 @@ export class SearchCommand extends CommandBase {
                 results = await DB.connection.getRepository(HelpBotQuestion)
                                   .createQueryBuilder('t')
                                   .select([ '*' ])
-                                  .where('id = :id', { id: command.namedarguments.id.value })
+                                  .where('id = :id', { id: command.namedarguments.id })
                                   .getRawMany();
 
             } else if (command.arguments[ 0 ].name === 'all') {
