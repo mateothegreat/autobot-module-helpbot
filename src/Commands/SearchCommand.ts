@@ -129,8 +129,17 @@ export class SearchCommand extends CommandBase {
 
             } else {
 
-                results = await DB.connection.manager.query('SELECT * FROM help_bot_question WHERE question LIKE \'%' + command.arguments[ 0 ].name + '%\'');
+                // results = await DB.connection.manager.query('SELECT * FROM help_bot_question WHERE question LIKE \'%' + command.arguments[ 0 ].name + '%\'');
+                results = await DB.connection
+                                  .getRepository(HelpBotQuestion)
+                                  .createQueryBuilder('t')
+                                  .select([ '*' ])
+                                  .where('question LIKE :terms', {
 
+                                      terms: '%' + command.arguments[ 0 ].name + '%'
+
+                                  })
+                                  .getRawMany();
             }
 
             if (results.length > 0) {
