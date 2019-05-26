@@ -23,7 +23,16 @@ export class SearchCommand extends CommandBase {
             name: '!search',
             group: 'help',
             description: 'Search the HelpDesk questions.',
-            entities: [ HelpBotQuestion, HelpBotTag ]
+            entities: [ HelpBotQuestion, HelpBotTag ],
+            params: [
+
+                {
+
+                    name: 'id'
+
+                }
+
+            ]
 
         });
 
@@ -90,7 +99,15 @@ export class SearchCommand extends CommandBase {
 
             let results: Array<HelpBotQuestion>;
 
-            if (command.arguments[ 0 ].name === 'all') {
+            if (command.namedarguments.id) {
+
+                results = await DB.connection.getRepository(HelpBotTag)
+                                  .createQueryBuilder('t')
+                                  .select([ '*' ])
+                                  .where('id = :id', { id: command.namedarguments.value })
+                                  .getRawMany();
+
+            } else if (command.arguments[ 0 ].name === 'all') {
 
                 results = await DB.connection.manager.query('SELECT * FROM help_bot_question');
 
@@ -119,7 +136,6 @@ export class SearchCommand extends CommandBase {
             }
 
         }
-
 
         Logger.log(`AskCommand.search: ${ command.obj.content }`);
 
