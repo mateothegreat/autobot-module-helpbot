@@ -49,7 +49,7 @@ export class TagAddCommand extends CommandBase {
     public async run(command: CommandParser) {
 
         //
-        // First we try to retrieve the macro by name.
+        // First we try to retrieve the tag by name.
         //
         const result = await DB.connection.getRepository(HelpBotTag)
                                .createQueryBuilder('t')

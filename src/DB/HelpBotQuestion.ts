@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { HelpBotAnswer }                                                                              from './HelpBotAnswer';
+import { HelpBotQuestionStatus }                                                                      from './HelpBotQuestionStatus';
 import { HelpBotTag }                                                                                 from './HelpBotTag';
 
 @Entity()
@@ -12,13 +13,16 @@ export class HelpBotQuestion {
     public stampCreated: Date;
 
     @Column()
-    fromUserid: string;
+    public fromUserid: string;
 
     @Column()
-    fromDiscriminator: string;
+    public fromDiscriminator: string;
 
     @Column()
-    fromUsername: string;
+    public fromUsername: string;
+
+    @Column({ type: 'enum', enum: HelpBotQuestionStatus, default: HelpBotQuestionStatus.NEW })
+    public status: string;
 
     @Column({ type: "blob" })
     public question: string;

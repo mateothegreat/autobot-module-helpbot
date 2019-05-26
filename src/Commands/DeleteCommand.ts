@@ -1,6 +1,8 @@
 import { Command, CommandBase, CommandParser, DB, Event, Logger } from '@autobot/common';
 import { RichEmbed }                                              from 'discord.js';
 import { HelpBotQuestion }                                        from '../DB/HelpBotQuestion';
+import { HelpBotQuestionStatus }                                  from '../DB/HelpBotQuestionStatus';
+import { HelpBotTag }                                             from '../DB/HelpBotTag';
 
 /**
  * Search the HelpDesk questions.
@@ -43,11 +45,31 @@ export class DeleteCommand extends CommandBase {
     //
     public async run(command: CommandParser) {
 
-        const deleted = await DB.connection.createQueryBuilder().delete().from(HelpBotQuestion).where('id = :id', { id: command.namedarguments.id }).execute();
 
-        if (deleted.raw.affectedRows > 0) {
+        //
+        // First we try to retrieve the tag by name.
+        //
+        const result = await DB.connection.getRepository(HelpBotTag)
+                               .createQueryBuilder('t')
+                               .select([ '*' ])
+                               .where('name = :name', { name: command.namedarguments.name })
+                               .getRawOne();
 
-            command.obj.reply(new RichEmbed().setTitle('Delete macro').setDescription(`The question #${ command.namedarguments.id } has been deleted!`));
+        //
+        // HelpBotQuestion exists, so let's update it.
+        //
+        if (result) {
+
+            result.status = HelpBotQuestionStatus.DELETED;
+
+            DB.connection
+              .createQueryBuilder()
+              .update(HelpBotQuestion)
+              .set(result)
+              .where('id = :id', { id: result.id })
+              .execute();
+
+            command.obj.reply(new RichEmbed().setTitle('Delete macro').setDescription(`The question #${ command.namedarguments.id } has been marked as deleted!`));
 
         } else {
 
