@@ -22,7 +22,7 @@ HELPBOT_QUESTIONS_CHANNEL_ID=<some channel id>
 
 | Command                                                               | Description                                                       |
 |-----------------------------------------------------------------------|-------------------------------------------------------------------|
-| `?ask <some question> #javascript #java etc                           | Submits a question with tags.                                     |
+| `?ask <some question> #javascript #java etc`                          | Submits a question with tags.                                     |
 | `?search all`                                                         | Returns all questions.                                            |
 | `?search <terms>`                                                     | Searches all questions.                                           |
 | `?search id=<#>`                                                      | Retrieve a question by id.                                        |
